@@ -18,5 +18,13 @@ pipeline {
         }
       }
     }
+    stage("Email notification")
+    def sendEmailAfterSonarScan() {
+    soanrUrl = "http://3.93.212.229:9000/"
+    { steps, domain, config ->
+
+        steps.emailext(to: "pruthvihs173@gmail.com", body: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS - $BUILD_URL ' + 'Please click the following link to view Sonar Report $sonarUrl', mimeType: 'text/html', subject: 'Sonar Report')
+    }
+    }
   }
 }
